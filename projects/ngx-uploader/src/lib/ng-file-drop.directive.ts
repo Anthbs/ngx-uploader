@@ -52,12 +52,19 @@ export class NgFileDropDirective implements OnInit, OnDestroy {
   stopEvent = (e: Event) => {
     e.stopPropagation();
     e.preventDefault();
+    if (e && e.dataTransfer && e.dataTransfer.dropEffect != "copy") {
+      e.dataTransfer.dropEffect = "copy";
+    }
   }
 
   @HostListener('drop', ['$event'])
   public onDrop(e: any) {
     e.stopPropagation();
     e.preventDefault();
+    
+    if (e && e.dataTransfer && e.dataTransfer.dropEffect != "copy") {
+      e.dataTransfer.dropEffect = "copy";
+    }
 
     const event: UploadOutput = { type: 'drop' };
     this.uploadOutput.emit(event);
@@ -69,6 +76,10 @@ export class NgFileDropDirective implements OnInit, OnDestroy {
     if (!e) {
       return;
     }
+    
+    if (e && e.dataTransfer && e.dataTransfer.dropEffect != "copy") {
+      e.dataTransfer.dropEffect = "copy";
+    }
 
     const event: UploadOutput = { type: 'dragOver' };
     this.uploadOutput.emit(event);
@@ -78,6 +89,10 @@ export class NgFileDropDirective implements OnInit, OnDestroy {
   public onDragLeave(e: Event) {
     if (!e) {
       return;
+    }
+    
+    if (e && e.dataTransfer && e.dataTransfer.dropEffect != "copy") {
+      e.dataTransfer.dropEffect = "copy";
     }
 
     const event: UploadOutput = { type: 'dragOut' };
